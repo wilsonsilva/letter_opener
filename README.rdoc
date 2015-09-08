@@ -53,6 +53,11 @@ Letter Opener uses {Launchy}[https://github.com/copiousfreetime/launchy] to open
 
 In order to keep this project simple, I don't have plans to turn it into a Rails engine with an interface for browsing the sent mail but there is a {gem you can use for that}[https://github.com/fgrehm/letter_opener_web].
 
+== TODO
+
+config.letter_opener_settings = ActiveSupport::OrderedOptions.new
+config.letter_opener_settings.show_headers = false
+
 
 == Development & Feedback
 
