@@ -13,6 +13,10 @@ Then set the delivery method in <tt>config/environments/development.rb</tt>
 
   config.action_mailer.delivery_method = :letter_opener
 
+The email headers can be disabled by using the +show_headers+ option.
+
+  config.action_mailer.letter_opener_settings.show_headers = false
+
 Now any email will pop up in your browser instead of being sent. The messages are stored in <tt>tmp/letter_opener</tt>.
 
 ==== For Rails 2.3.x support

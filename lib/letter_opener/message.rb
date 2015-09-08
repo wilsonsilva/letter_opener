@@ -4,19 +4,20 @@ module LetterOpener
   class Message
     attr_reader :mail
 
-    def self.rendered_messages(location, mail)
+    def self.rendered_messages(location, mail, show_headers = true)
       messages = []
-      messages << new(location, mail, mail.html_part) if mail.html_part
-      messages << new(location, mail, mail.text_part) if mail.text_part
-      messages << new(location, mail) if messages.empty?
+      messages << new(location, mail, mail.html_part, show_headers) if mail.html_part
+      messages << new(location, mail, mail.text_part, show_headers) if mail.text_part
+      messages << new(location, mail, nil, show_headers) if messages.empty?
       messages.each(&:render)
       messages.sort
     end
 
-    def initialize(location, mail, part = nil)
+    def initialize(location, mail, part = nil, show_headers = true)
       @location = location
       @mail = mail
       @part = part
+      @show_headers = show_headers
       @attachments = []
     end
 
@@ -44,7 +45,8 @@ module LetterOpener
     end
 
     def template
-      File.read(File.expand_path("../message.html.erb", __FILE__))
+      template_path = @show_headers ? 'message' : 'message_without_headers'
+      File.read(File.expand_path("../#{template_path}.html.erb", __FILE__))
     end
 
     def filepath
